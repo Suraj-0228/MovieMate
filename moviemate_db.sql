@@ -1,9 +1,13 @@
+-- =====================================================
 -- Create Database
+-- =====================================================
 CREATE DATABASE IF NOT EXISTS moviemate_db;
 USE moviemate_db;
 
+-- =====================================================
 -- Users Table
-CREATE TABLE users (
+-- =====================================================
+CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     fullname VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -12,8 +16,10 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- =====================================================
 -- Movies Table
-CREATE TABLE movies_details (
+-- =====================================================
+CREATE TABLE IF NOT EXISTS movies_details (
     movie_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     language VARCHAR(50),
@@ -24,39 +30,49 @@ CREATE TABLE movies_details (
     description TEXT
 );
 
+-- =====================================================
 -- Cast Details Table
-CREATE TABLE `cast_details` (
-  `cast_id` INT AUTO_INCREMENT PRIMARY KEY,
-  `movie_id` INT NOT NULL,
-  `actor_name` VARCHAR(100) NOT NULL,
-  `role_name` VARCHAR(100),
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (`movie_id`) REFERENCES `movies_details`(`movie_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
+-- =====================================================
+CREATE TABLE IF NOT EXISTS cast_details (
+    cast_id INT AUTO_INCREMENT PRIMARY KEY,
+    movie_id INT NOT NULL,
+    actor_name VARCHAR(100) NOT NULL,
+    role_name VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (movie_id) REFERENCES movies_details(movie_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
+-- =====================================================
 -- Theaters Table
-CREATE TABLE theaters (
+-- =====================================================
+CREATE TABLE IF NOT EXISTS theaters (
     theater_id INT AUTO_INCREMENT PRIMARY KEY,
     theater_name VARCHAR(100) NOT NULL,
     theater_location VARCHAR(100),
     ticket_price DECIMAL(10,2) NOT NULL DEFAULT 200
 );
 
+-- =====================================================
 -- Showtimes Table
-CREATE TABLE showtimes (
+-- =====================================================
+CREATE TABLE IF NOT EXISTS showtimes (
     show_id INT AUTO_INCREMENT PRIMARY KEY,
     movie_id INT NOT NULL,
     theater_id INT NOT NULL,
     show_date DATE NOT NULL,
     show_time TIME NOT NULL,
+
     FOREIGN KEY (movie_id) REFERENCES movies_details(movie_id) ON DELETE CASCADE,
     FOREIGN KEY (theater_id) REFERENCES theaters(theater_id) ON DELETE CASCADE
 );
 
--- Booking Table
-CREATE TABLE bookings (
+-- =====================================================
+-- Bookings Table
+-- =====================================================
+CREATE TABLE IF NOT EXISTS bookings (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     movie_id INT NOT NULL,
@@ -73,17 +89,22 @@ CREATE TABLE bookings (
     FOREIGN KEY (show_id) REFERENCES showtimes(show_id) ON DELETE CASCADE
 );
 
+-- =====================================================
 -- Payments Table
-CREATE TABLE payments (
+-- =====================================================
+CREATE TABLE IF NOT EXISTS payments (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT NOT NULL,
     payment_method ENUM('UPI', 'Card', 'Cash') NOT NULL,
     payment_status ENUM('Pending', 'Confirmed', 'Failed') DEFAULT 'Pending',
     payment_message VARCHAR(255) DEFAULT NULL,
+
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE
 );
 
+-- =====================================================
 -- Insert Records into movies_details Table
+-- =====================================================
 INSERT INTO `movies_details` (`movie_id`, `title`, `language`, `release_date`, `genre`, `rating`, `poster_url`, `description`) VALUES
 (1, 'Singham Again', 'Hindi', '2025-03-07', 'Action', 8.3, 'https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Singham_Again_poster.jpg/250px-Singham_Again_poster.jpg', 'Rohit Shetty returns with another powerful entry in the Singham franchise. Ajay Devgn reprises his role as the fearless cop Bajirao Singham who takes on a new wave of crime and corruption. Packed with intense action, emotional depth, and a star-studded police universe, the film promises pure adrenaline.'),
 (2, 'Bhoot Police', 'Hindi', '2021-09-10', 'Horror', 6.8, 'https://upload.wikimedia.org/wikipedia/en/4/4f/Bhoot_Police_film_poster.jpg', 'Two brothers who run a fake ghost-hunting business get caught in a real supernatural encounter in the hills of Himachal. A horror-comedy starring Saif Ali Khan and Arjun Kapoor, the film mixes laughs and chills in equal measure. The scenic visuals and quirky characters add to its spooky charm.'),
@@ -106,7 +127,9 @@ INSERT INTO `movies_details` (`movie_id`, `title`, `language`, `release_date`, `
 (19, 'OMG 2', 'Hindi', '2025-08-01', 'Comedy', 7.3, 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/OMG_2_%E2%80%93_Oh_My_God%21_2_poster.jpg/250px-OMG_2_%E2%80%93_Oh_My_God%21_2_poster.jpg', 'Akshay Kumar returns in this thought-provoking satirical comedy exploring sex education and societal hypocrisy. With Pankaj Tripathi’s heartfelt performance, the film balances humor with meaningful commentary. It’s a bold, emotional, and enlightening entertainer.'),
 (20, 'Drishyam 2', 'Hindi', '2025-07-19', 'Thriller', 7.8, 'https://filmik.blog/wp-content/uploads/2022/11/Drishyam-2-Movie-.webp', 'Ajay Devgn returns as Vijay Salgaonkar in this gripping sequel to the 2015 hit. As new evidence emerges, his perfect crime begins to crack, testing his wits once again. A masterful thriller filled with suspense, emotion, and shocking twists.');
 
+-- =====================================================
 -- Insert Records into cast_details Table
+-- =====================================================
 INSERT INTO `cast_details` (`movie_id`, `actor_name`, `role_name`) VALUES
 -- 1. Singham Again
 (1, 'Ajay Devgn', 'Bajirao Singham'),
@@ -226,7 +249,9 @@ INSERT INTO `cast_details` (`movie_id`, `actor_name`, `role_name`) VALUES
 (20, 'Shriya Saran', 'Nandini Salgaonkar'),
 (20, 'Akshaye Khanna', 'IG Tarun Ahlawat');
 
+-- =====================================================
 -- Insert Records into Theaters Table
+-- =====================================================
 INSERT INTO `theaters` (`theater_id`, `theater_name`, `ticket_price`, `theater_location`) VALUES
 (1, 'INOX Raj Imperial', 250.00, 'Surat - Piplod'),
 (2, 'PVR RahulRaj Mall', 380.00, 'Surat - Dumas Road'),
@@ -236,7 +261,9 @@ INSERT INTO `theaters` (`theater_id`, `theater_name`, `ticket_price`, `theater_l
 (6, 'Rajhans Cinemas', 200.00, 'Surat - Adajan'),
 (7, 'Time Cinema', 300.00, 'Surat - Ring Road');
 
+-- =====================================================
 -- Insert Records into Show Time Table
+-- =====================================================
 INSERT INTO `showtimes` (`movie_id`, `theater_id`, `show_date`, `show_time`) VALUES
 -- 1. Singham Again
 (1, 1, CURDATE(), '10:00:00'),

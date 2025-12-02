@@ -3,7 +3,7 @@
 require 'includes/dbconnection.php';
 
 // ===== Pagination Settings =====
-$limit = 8; // bookings per page
+$limit = 4; // bookings per page
 $page  = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) {
     $page = 1;

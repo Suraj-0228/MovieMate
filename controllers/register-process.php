@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                       VALUES ('$fullname', '$email', '$username', '$password')";
 
                 if ($con->query($sql_query) === TRUE) {
-                    echo "<script>alert('Registration Successful.');
-                    window.location.href = 'login.php';</script>";
+                    echo "<script>alert('Registration Successfull... Please, Login to Continue.');
+                    window.location.href = '../login.php';</script>";
                 } else {
                     echo "<script>alert('ERROR: Registration Failed!!!');</script>";
                     echo "Error: " . $con->error;

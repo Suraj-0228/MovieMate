@@ -39,7 +39,7 @@ if (!isset($_SESSION['adminname'])) {
 
         <!-- Admin Dashboard Section -->
         <section class="content-area flex-grow-1" style="margin-left: 260px; padding: 20px;">
-            <section class="container my-5 px-4" style="width: 80rem;">
+            <section class="container my-3 px-4" style="width: 80rem;">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
                     <h1 class="fw-bold text-primary text-uppercase mb-3 mb-md-0">
                         <i class="fa-solid fa-user-tie me-2"></i> Admin Dashboard

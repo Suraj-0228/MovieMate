@@ -26,30 +26,22 @@ require 'controllers/booking-process2.php';
     <!-- Booking Form -->
     <div class="container my-5">
         <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-            <!-- Header -->
             <div class="booking-header text-center py-4">
                 <h1 class="fw-bold mb-1">Book Your Tickets Now!</h1>
                 <p class="text-light opacity-75 mb-0">
                     Choose your date, showtime, seats and complete your booking in a few steps.
                 </p>
             </div>
-
             <div class="card-body p-4 p-md-5 bg-light">
                 <div class="row g-4 align-items-start">
-
-                    <!-- LEFT: Booking Form (inside form tag) -->
                     <div class="col-lg-5">
                         <form action="controllers/booking-process.php" method="post" id="bookingForm" class="booking-form">
-
-                            <!-- Step 1 -->
                             <div class="mb-3">
                                 <div class="d-flex align-items-center mb-2">
                                     <h5 class="mb-0 fw-semibold">Date & Show</h5>
                                 </div>
                                 <small class="text-muted">Confirm the movie, date and showtime.</small>
                             </div>
-
-                            <!-- Movie Title -->
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Movie Title:</label>
                                 <input type="hidden" name="movie_id" value="<?= $movie_id; ?>">
@@ -59,11 +51,8 @@ require 'controllers/booking-process2.php';
                                     value="<?= $movie_title; ?>"
                                     readonly>
                             </div>
-
-                            <!-- Date & Show -->
                             <div class="row g-3 mb-4">
                                 <?php $today = date("Y-m-d"); ?>
-
                                 <div class="col-12">
                                     <label for="booking_date" class="form-label fw-semibold">Select Date:</label>
                                     <div class="input-group shadow-sm">
@@ -79,7 +68,6 @@ require 'controllers/booking-process2.php';
                                             min="<?= $today; ?>">
                                     </div>
                                 </div>
-
                                 <div class="col-12">
                                     <label for="show_id" class="form-label fw-semibold">Select Show:</label>
                                     <div class="input-group shadow-sm">
@@ -104,27 +92,12 @@ require 'controllers/booking-process2.php';
                                 </div>
                             </div>
                             <hr class="border-dark opacity-50">
-
-                            <!-- Step 2 note (seats are on the right) -->
-                            <div class="mb-3">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h5 class="mb-0 fw-semibold">Select Seats</h5>
-                                </div>
-                                <small class="text-muted d-block mb-2">
-                                    Use the seat map on the right to choose your seats.
-                                </small>
-                            </div>
-                            <hr class="border-dark opacity-50">
-
-                            <!-- Step 3: Summary -->
                             <div class="mb-3">
                                 <div class="d-flex align-items-center mb-2">
                                     <h5 class="mb-0 fw-semibold">Payment</h5>
                                 </div>
                                 <small class="text-muted">Check price and total amount before payment.</small>
                             </div>
-
-                            <!-- Price & Amount -->
                             <div class="row g-3 mb-4">
                                 <div class="col-12">
                                     <label for="ticketPrice" class="form-label fw-semibold">Ticket Price:</label>
@@ -151,8 +124,6 @@ require 'controllers/booking-process2.php';
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Buttons -->
                             <div class="mt-4 mb-2 d-flex flex-column gap-3">
                                 <button
                                     type="button"
@@ -161,7 +132,6 @@ require 'controllers/booking-process2.php';
                                     data-bs-target="#paymentModal">
                                     <i class="fa-solid fa-wallet me-2"></i> Pay &amp; Book Now
                                 </button>
-
                                 <button
                                     type="button"
                                     class="bg-danger text-white rounded w-100 px-5 py-2 fw-semibold border-0 shadow-sm"
@@ -169,27 +139,21 @@ require 'controllers/booking-process2.php';
                                     <i class="fa-solid fa-xmark me-2"></i> Cancel
                                 </button>
                             </div>
-
-                            <!-- Hidden fields (used by JS + backend) -->
                             <input type="hidden" name="seatRow" id="seatRow">
                             <input type="hidden" name="totalSeat" id="totalSeat">
                             <input type="hidden" name="payment_method" id="payment_method" required>
                         </form>
                     </div>
-
-                    <!-- RIGHT: Seat Layout (outside form, logic unchanged) -->
                     <div class="col-lg-7">
-                        <div class="seat-layout border rounded-4 bg-white p-3 p-md-4 h-100">
-
+                        <div class="seat-layout border rounded-4 bg-white p-3 p-md-4 h-100">                            
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="mb-0 fw-semibold">Seat Selection</h5>
                                 <small class="text-muted">Tap to select / deselect</small>
                             </div>
-
-                            <!-- ₹299 Recliner (Row A) -->
+                            <hr class="border-dark opacity-50">
                             <div class="seat-section mb-4">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-semibold text-uppercase small">₹299 Recliner</span>
+                                    <span class="fw-semibold text-uppercase small">Recliner</span>
                                     <small class="text-muted">Row A</small>
                                 </div>
                                 <div class="seat-row d-flex justify-content-center flex-wrap gap-1">
@@ -204,14 +168,11 @@ require 'controllers/booking-process2.php';
                                     <?php endfor; ?>
                                 </div>
                             </div>
-
-                            <!-- ₹149 Executive (Rows B–F) -->
                             <div class="seat-section mb-4">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-semibold text-uppercase small">₹149 Executive</span>
+                                    <span class="fw-semibold text-uppercase small">Executive</span>
                                     <small class="text-muted">Rows B–F</small>
                                 </div>
-
                                 <?php foreach (['B', 'C', 'D', 'E', 'F'] as $rowLabel): ?>
                                     <div class="d-flex align-items-center mb-2">
                                         <div class="seat-row-label me-2 fw-semibold small"><?= $rowLabel; ?></div>
@@ -229,8 +190,6 @@ require 'controllers/booking-process2.php';
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-
-                            <!-- Legend -->
                             <div class="d-flex flex-wrap justify-content-center gap-3 mt-3 small">
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="seat legend available"></span> Available
@@ -242,16 +201,13 @@ require 'controllers/booking-process2.php';
                                     <span class="seat legend booked"></span> Booked
                                 </div>
                             </div>
-
-                            <!-- Selected Seats Text -->
                             <div class="text-center mt-3 small text-muted">
                                 Selected seats:
                                 <span id="selectedSeatsLabel" class="fw-semibold">None</span>
                             </div>
                         </div>
                     </div>
-
-                </div> <!-- /.row -->
+                </div> 
             </div>
 
             <!-- Payment Method Modal (unchanged) -->
@@ -276,8 +232,6 @@ require 'controllers/booking-process2.php';
                                     <i class="fa-solid fa-money-bill me-2 text-success"></i> Cash at Counter
                                 </button>
                             </div>
-
-                            <!-- UPI Form -->
                             <div id="upiForm" class="payment-form mt-4 d-none text-center">
                                 <p class="fw-semibold mb-2">Scan the QR Code Below to Pay:</p>
                                 <img
@@ -295,8 +249,6 @@ require 'controllers/booking-process2.php';
                                     Pay Now
                                 </button>
                             </div>
-
-                            <!-- Card Form -->
                             <div id="cardForm" class="payment-form d-none mt-4">
                                 <input type="text" class="form-control mb-2" id="cardNumberInput" placeholder="Card Number (16 digits)">
                                 <input type="text" class="form-control mb-2" id="cardHolderInput" placeholder="Card Holder Name">
@@ -315,8 +267,6 @@ require 'controllers/booking-process2.php';
                                     Pay Now
                                 </button>
                             </div>
-
-                            <!-- Cash Form -->
                             <div id="cashForm" class="payment-form d-none mt-4 text-center">
                                 <p class="text-muted mb-3">
                                     Please pay the cash amount at the counter within 1 hour to confirm your booking.
@@ -332,7 +282,6 @@ require 'controllers/booking-process2.php';
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

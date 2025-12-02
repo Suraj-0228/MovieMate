@@ -2,7 +2,7 @@
 require 'includes/dbconnection.php';
 
 // ===== Pagination Settings =====
-$limit = 8; // users per page (change if needed)
+$limit = 4; // users per page (change if needed)
 $page  = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) {
     $page = 1;

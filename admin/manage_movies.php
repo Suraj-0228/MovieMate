@@ -38,11 +38,11 @@ if (!isset($_SESSION['adminname'])) {
 
         <!-- Manage Movies Section -->
         <section class="content-area flex-grow-1" style="margin-left: 260px; padding: 20px;">
-            <section class="container my-5 px-4">
+            <section class="container my-3 px-4">
                 <?php
                 require 'includes/dbconnection.php';
 
-                $limit = 8;
+                $limit = 4;
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
                 if ($page < 1) {
                     $page = 1;

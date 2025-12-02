@@ -38,7 +38,7 @@ if (!isset($_SESSION['adminname'])) {
 
         <!-- Update Theater Section -->
         <section class="content-area flex-grow-1" style="margin-left: 260px; padding: 20px;">
-            <section class="container my-5 px-4" style="width: 80rem;">
+            <section class="container my-3 px-4" style="width: 80rem;">
                 <div class="card shadow-lg border-0 rounded-4">
                     <div class="card-header text-center text-white py-4 admin-header">
                         <h1 class="fw-bold text-uppercase mb-0">

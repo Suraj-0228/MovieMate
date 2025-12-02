@@ -37,7 +37,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
 
         <!-- Manage Booking Section -->
         <section class="content-area flex-grow-1" style="margin-left: 260px; padding: 20px;">
-            <section class="container my-5 px-4">
+            <section class="container my-3 px-4">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 text-primary">
                     <h1 class="fw-bold text-uppercase mb-3 mb-md-0">
                         <i class="fa-solid fa-ticket me-2"></i> Manage Bookings
