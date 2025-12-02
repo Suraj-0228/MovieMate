@@ -3,7 +3,7 @@
 $server = "localhost";
 $username = "root";
 $password = "";
-$database = "cinebook_db";
+$database = "moviemate_db";
 
 $con = mysqli_connect($server, $username, $password, $database);
 
